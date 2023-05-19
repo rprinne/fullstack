@@ -1,5 +1,5 @@
 import axios from 'axios'
-const dbURL = 'http://localhost:3001/persons'
+const dbURL = '/api/persons'
 
 const getAll = () => {
     const request = axios.get(dbURL)
@@ -12,7 +12,7 @@ const getAll = () => {
   }
   
   const update = (id, newObject) => {
-    const request =  axios.put(`${dbURL}/${id}`, newObject)
+    const request = axios.put(`${dbURL}/${id}`, newObject)
     return request.then(res => res.data)
   }
 

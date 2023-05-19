@@ -47,7 +47,7 @@ const App = () => {
     } else if (window.confirm(`${newName} is already added to phonebook,
      replace the old number with a new one?`)) {
       const id = persons.filter(p => p.name === newName)[0].id
-      dbService.update(id)
+      dbService.update(id, {number: newNumber})
       .then(updatedEntry => {
         const newPersons = persons.map(p => p.name === newName ? {...p, number: newNumber} : p)
         setPersons(newPersons)
