@@ -39,6 +39,7 @@ app.get('/api/persons', (req, res) => {
 })
 
 app.use(express.json())
+app.use(express.static('build'))
 
 app.get('/info', (req, res) => {
   const time = Date(Date.now())
