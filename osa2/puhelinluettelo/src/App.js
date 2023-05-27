@@ -42,18 +42,19 @@ const App = () => {
           handleNotification(`Added ${newName}`, "success")
         })
         .catch(error => {
-          handleNotification(`${error}`, "error")
+          handleNotification(`${error.response.data.error}`, "error")
         })
     } else if (window.confirm(`${newName} is already added to phonebook,
      replace the old number with a new one?`)) {
       const id = persons.filter(p => p.name === newName)[0].id
-      dbService.update(id, {number: newNumber})
+      const updatedPerson = { name: newName, number: newNumber }
+      dbService.update(id, updatedPerson)
       .then(updatedEntry => {
         const newPersons = persons.map(p => p.name === newName ? {...p, number: newNumber} : p)
         setPersons(newPersons)
       })
       .catch(error => {
-        handleNotification(`${error}`, "error")
+        handleNotification(`${error.response.data.error}`, "error")
       })
     }
   }

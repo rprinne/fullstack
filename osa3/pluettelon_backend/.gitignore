@@ -1,3 +1,4 @@
 .env
+.eslintignore
 /requests
 /node_modules
