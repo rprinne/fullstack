@@ -63,7 +63,7 @@ const ShowCountries = ({countries, handleClick}) => {
           <h2>Weather in {c.capital[0]}</h2>
           {(weather == null) && <p>Cannot display weather data right now...</p>}
           {weather && <p>temperature: {(weather.main.temp - 275.15).toFixed(1)} °C</p>}
-          {weather && <img src={`https://openweathermap.org/img/wn/${weather.weather[0].id}@2x.png`} />}
+          {weather && <img src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt={weather.weather[0].description} />}
           {weather && <p>wind: {weather.wind.speed} m/s </p>}
         </div>
       </div>
