@@ -68,6 +68,7 @@ const App = () => {
           setPersons(updatedPersons)
         })
         .catch(error => {
+          console.log(error)
           handleNotification(`${person.name} was already deleted from server`, "error")
         })
     }
