@@ -63,9 +63,11 @@ app.post('/api/persons', morgan(':method :url :status - :response-time ms :reque
     name: body.name,
     number: body.number
   })
-  person.save().then(savedPerson => {
-    res.json(savedPerson)
-  }).catch(error => next(error))
+  person.save()
+    .then(savedPerson => {
+      res.json(savedPerson)
+    })
+    .catch(error => next(error))
 })
 
 app.put('/api/persons/:id', morgan(':method :url :status - :response-time ms :request_body'), (req, res, next) => {
@@ -81,9 +83,10 @@ app.put('/api/persons/:id', morgan(':method :url :status - :response-time ms :re
 })
 
 app.delete('/api/persons/:id', (req, res, next) => {
-  Person.findByIdAndRemove(req.params.id)
-    .then(res => {
-      res.status(204).end()
+  const id = req.params.id
+  Person.findByIdAndRemove(id)
+    .then(response => {
+      res.json(response)
     })
     .catch(error => next(error))
 })
