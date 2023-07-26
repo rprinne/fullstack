@@ -1,6 +1,29 @@
-const listHelper = require('../utils/list_helper')
+const Blog = require('../models/blog')
 
-const blogs = [
+const blogsInDb = async () => {
+  const blogs = await Blog.find({})
+  return blogs.map(blog => blog.toJSON())
+}
+
+const newBlog = {
+  title: "NewBlog",
+  author: "NewAuthor",
+  url: "NewUrl",
+}
+
+const noTitleBlog = {
+  author: "NewAuthor",
+  url: "NewUrl",
+  likes: 0
+}
+
+const noAuthorBlog = {
+  title: "NewBlog",
+  url: "NewUrl",
+  likes: 0
+}
+
+const initialBlogs = [
     {
       _id: "5a422a851b54a676234d17f7",
       title: "React patterns",
@@ -62,69 +85,6 @@ const listWithOneBlog = [
   }
 ]
 
-describe('dummy', () => {
-  test('dummy return one', () => {
-      const result =listHelper.dummy(blogs)
-      expect(result).toBe(1)
-  })
-})
-
-describe('total likes', () => {
-  test('totalLikes returns 36', () => {
-      const result = listHelper.totalLikes(blogs)
-      expect(result).toBe(36)
-  })
-
-  test('when list has only one blog equals the likes of that', () => {
-      const result = listHelper.totalLikes(listWithOneBlog)
-      expect(result).toBe(5)
-  })
-})
-
-describe('favoriteBlog', () => {
-  test('favorite blog is Canonical', () => {
-    const result = listHelper.favoriteBlog(blogs)
-    expect(result).toEqual(
-      {
-        title: "Canonical string reduction",
-        author: "Edsger W. Dijkstra",
-        likes: 12
-      }
-    )
-  })
-
-  test('favorite of one blog is the the blog itself', () => {
-    const result = listHelper.favoriteBlog(listWithOneBlog)
-    expect(result).toEqual(
-      {
-        title: 'Go To Statement Considered Harmful',
-        author: 'Edsger W. Dijkstra',
-        likes: 5
-      }
-    )
-  })
-})
-
-describe('mostBlogs return correct author', () => {
-  test('Martin has most blogs', () => {
-    const result = listHelper.mostBlogs(blogs)
-    expect(result).toEqual(
-      {
-        author: "Robert C. Martin",
-        blogs: 3
-      }
-    )
-  })
-})
-
-describe('mostLikes returns correct author and number of likes', () => {
-  test('Dijkstra has most likes (17)', () => {
-    const result = listHelper.mostLikes(blogs)
-    expect(result).toEqual(
-      {
-        author: "Edsger W. Dijkstra",
-        likes: 17
-      }
-    )
-  })
-})
+module.exports = {
+  blogsInDb, newBlog, noTitleBlog, noAuthorBlog, initialBlogs, listWithOneBlog
+}
