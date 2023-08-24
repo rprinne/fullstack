@@ -14,7 +14,7 @@ const notificationSlice = createSlice({
 
 export const showNotification = (message, timeout) => {
   return dispatch => {
-    dispatch(setNotification(message + "ida ida"))
+    dispatch(setNotification(message))
     setTimeout(() => dispatch(setNotification(null)), timeout * 1000)
   }
 }

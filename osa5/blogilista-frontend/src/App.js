@@ -84,7 +84,7 @@ const App = () => {
       }
 
       {user &&
-        <p>{user.name} logged in <button onClick={logout}>logout</button></p>
+        <p>{user.name} logged in <button id={'logout-button'} onClick={logout}>logout</button></p>
       }
 
       {user &&
