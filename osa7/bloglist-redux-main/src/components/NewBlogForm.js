@@ -16,6 +16,7 @@ const NewBlogForm = () => {
       title: title,
       author: author,
       url: url,
+      comments: Array(0),
     };
     dispatch(createNewBlog(newBlog));
 

@@ -37,10 +37,17 @@ const AnecdoteList = ({ anecdotes }) => (
 const OneAnecdote = ({ anecdotes }) => {
   const id = useParams().id
   const anecdote = anecdotes.find(n => n.id === Number(id))
+  const getUrl = () => {
+    if (anecdote.info) {
+      return <p>See <a href={anecdote.info}>{anecdote.info}</a> for more info</p>
+    }
+    return
+  }
   return (
     <div>
       <h2>{`${anecdote.content} by ${anecdote.author}`}</h2>
       <p>{`has ${anecdote.votes} votes`}</p>
+      {getUrl()}
     </div>
   )
 }
@@ -63,7 +70,7 @@ const Footer = () => (
   <div>
     Anecdote app for <a href='https://fullstackopen.com/'>Full Stack Open</a>.
 
-    See <a href='https://github.com/fullstack-hy2020/routed-anecdotes/blob/master/src/App.js'>https://github.com/fullstack-hy2020/routed-anecdotes/blob/master/src/App.js</a> for the source code.
+    See <a href='https://github.com/rprinne/fullstack/tree/main/osa6/redux-anecdotes-main'>https://github.com/rprinne/fullstack/tree/main/osa6/redux-anecdotes-main</a> for the source code.
   </div>
 )
 
@@ -147,7 +154,7 @@ const App = () => {
     setTimeout(() => setNotification(''), 5000)
   }
 
-  const anecdoteById = (id) =>
+/*   const anecdoteById = (id) =>
     anecdotes.find(a => a.id === id)
 
   const vote = (id) => {
@@ -159,7 +166,7 @@ const App = () => {
     }
 
     setAnecdotes(anecdotes.map(a => a.id === id ? voted : a))
-  }
+  } */
 
   return (
     <Router>

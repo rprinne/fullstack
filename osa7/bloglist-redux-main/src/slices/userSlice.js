@@ -7,6 +7,7 @@ const initialState = {
   name: null,
   token: null,
   username: null,
+  id: null,
 };
 
 export const notificationSlice = createSlice({

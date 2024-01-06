@@ -1,7 +1,10 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { useSelector } from "react-redux"
+import { Link } from "react-router-dom";
 
-const Blog = ({ blog, user, handleLike, handleRemove }) => {
+const Blog = ({ blog, handleLike, handleRemove }) => {
+  const user = useSelector((state) => state.user);
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -20,7 +23,7 @@ const Blog = ({ blog, user, handleLike, handleRemove }) => {
     return (
       <div className={"blog"} id={blog.title} style={blogStyle}>
         <p>
-          <span>{blog.title}</span>{" "}
+          <span><Link to={`/blogs/${blog.id}`}>{blog.title}</Link></span>{" "}
           <em>
             by <span>{blog.author}</span>
           </em>{" "}
@@ -35,7 +38,7 @@ const Blog = ({ blog, user, handleLike, handleRemove }) => {
           <br />
           <span>{blog.user.name}</span>
           <br />
-          {user === user ? (
+          {user.id === blog.user ? (
             <button onClick={handleRemove}>remove</button>
           ) : null}
         </p>
@@ -44,7 +47,8 @@ const Blog = ({ blog, user, handleLike, handleRemove }) => {
   } else {
     return (
       <ul className={"blog"} id={blog.title} style={blogStyle}>
-        {blog.title} <em>by {blog.author}</em>{" "}
+        <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+        <em> by {blog.author}</em>{" "}
         <button onClick={toggleExpanded}>view</button>
       </ul>
     );

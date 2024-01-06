@@ -1,18 +1,28 @@
 import { useEffect } from "react";
-import BlogList from "./components/BlogList";
-import Toggleable from "./components/Toggleable";
+import BlogListPage from "./components/BlogListPage";
+import UserPage from "./components/UserPage";
+import UsersPage from "./components/UsersPage";
+import BlogPage from "./components/BlogPage";
 import LoginForm from "./components/LoginForm";
-import NewBlogForm from "./components/NewBlogForm";
 import Notification from "./components/Notification";
 import blogService from "./services/blogs";
 
 import { initializeBlogs } from "./slices/blogsSlice";
+import { initializeUsers } from "./slices/usersSlice";
 import { setUser, setUserNull } from "./slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
+import {
+  Routes,
+  Route,
+  Link,
+} from "react-router-dom";
+
 const App = () => {
+  //const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const padding = { padding: 5 }
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedBloglistUser");
@@ -25,30 +35,32 @@ const App = () => {
 
   useEffect(() => {
     dispatch(initializeBlogs());
+    dispatch(initializeUsers());
   }, []);
 
   return (
     <div>
       <Notification />
+      <div>
+        <Link style={padding} to="/">blogs</Link>
+        <Link style={padding} to="/users">users</Link>
+        {user.token
+        ? <em>{user.name} logged in{" "}
+            <button id={"logout-button"} onClick={() => dispatch(setUserNull())}>
+              logout
+            </button>
+          </em>
+        : <Link style={padding} to="/login">login</Link>
+        }
+      </div>
 
-      {!user.token && <LoginForm />}
-
-      {user.token && (
-        <p>
-          {user.name} logged in{" "}
-          <button id={"logout-button"} onClick={() => dispatch(setUserNull())}>
-            logout
-          </button>
-        </p>
-      )}
-
-      {user.token && (
-        <Toggleable buttonLabel="Add new">
-          <NewBlogForm />
-        </Toggleable>
-      )}
-
-      {user.token && <BlogList user={user.username} />}
+      <Routes>
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/" element={<BlogListPage />} />
+        <Route path="/users" element={<UsersPage />} />
+        <Route path="/users/:id" element={<UserPage />} />
+        <Route path="/blogs/:id" element={<BlogPage />} />
+      </Routes>
     </div>
   );
 };
