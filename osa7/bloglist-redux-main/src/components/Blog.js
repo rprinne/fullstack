@@ -4,7 +4,9 @@ import { useSelector } from "react-redux"
 import { Link } from "react-router-dom";
 
 const Blog = ({ blog, handleLike, handleRemove }) => {
-  const user = useSelector((state) => state.user);
+  const loggedUser = useSelector((state) => state.user);
+  const users = useSelector(state => state.users)
+  const userWhoAddedBlog = users.find(u => u.id === blog.user)
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -36,9 +38,9 @@ const Blog = ({ blog, handleLike, handleRemove }) => {
             like
           </button>
           <br />
-          <span>{blog.user.name}</span>
+          <span>{userWhoAddedBlog.name}</span>
           <br />
-          {user.id === blog.user ? (
+          {loggedUser.id === blog.user ? (
             <button onClick={handleRemove}>remove</button>
           ) : null}
         </p>

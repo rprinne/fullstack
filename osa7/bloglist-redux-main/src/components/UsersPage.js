@@ -7,6 +7,7 @@ const UsersPage = () => {
     <div>
       <h2>Users</h2>
       <table>
+      <tbody>
       <tr><th></th><th><b>blogs created</b></th></tr>
       {users.map(user =>
         <tr key={user.id}>
@@ -14,6 +15,7 @@ const UsersPage = () => {
           <th> {user.blogs.length} </th>
         </tr>
       )}
+      </tbody>
       </table>
     </div>
   );

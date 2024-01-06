@@ -15,7 +15,6 @@ export const blogsSlice = createSlice({
     updateBlog: (state, action) => {
       const blogToUpdate = action.payload;
       const id = blogToUpdate.id;
-      console.log("from reducer", blogToUpdate)
       return state.map((blog) => (blog.id !== id ? blog : blogToUpdate));
     },
     remove: (state, action) => {

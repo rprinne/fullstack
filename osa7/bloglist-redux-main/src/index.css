@@ -16,6 +16,11 @@
   padding: 10px;
   margin-bottom: 10px;
 }
+.NavigationMenu {
+  background: lightseagreen;
+  border: "solid";
+  padding: 5px
+}
 th {
   text-align: left;
 }

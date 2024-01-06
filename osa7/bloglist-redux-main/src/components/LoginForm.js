@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../slices/userSlice";
+import { Form, Button } from 'react-bootstrap'
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -23,29 +24,29 @@ const LoginForm = () => {
   return (
     <div>
       <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          username
+      <Form onSubmit={handleSubmit}>
+        <Form.Group>
+          <Form.Label>username </Form.Label>
           <input
             type="text"
             value={username}
             id="username"
             onChange={({ target }) => setUsername(target.value)}
           />
-        </div>
-        <div>
-          password
+        </Form.Group>
+        <Form.Group>
+          password 
           <input
             type="password"
             value={password}
             id="password"
             onChange={({ target }) => setPassword(target.value)}
           />
-        </div>
-        <button type="submit" id="login-button">
+        </Form.Group>
+        <Button variant="primary" type="submit" id="login-button">
           login
-        </button>
-      </form>
+        </Button>
+      </Form>
     </div>
   );
 };

@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createNewBlog } from "../slices/blogsSlice";
 
+import { Button } from "react-bootstrap"
+
 const NewBlogForm = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -57,9 +59,9 @@ const NewBlogForm = () => {
             id="url-input"
           />
         </div>
-        <button type="submit" id="submit-button">
+        <Button type="submit" id="submit-button">
           submit
-        </button>
+        </Button>
       </form>
     </div>
   );

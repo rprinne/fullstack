@@ -39,9 +39,9 @@ const App = () => {
   }, []);
 
   return (
-    <div>
+    <div className="container">
       <Notification />
-      <div>
+      <div className="NavigationMenu">
         <Link style={padding} to="/">blogs</Link>
         <Link style={padding} to="/users">users</Link>
         {user.token
