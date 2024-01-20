@@ -1,13 +1,12 @@
-import { Patient, Entry } from "../src/types";
-import toNewPatientEntry from "../src/utils";
+import { Patient, Gender } from "../src/types";
 
-const patientData = [
+const data: Array<Patient> = [
   {
     "id": "d2773336-f723-11e9-8f0b-362b9e155667",
     "name": "John McClane",
     "dateOfBirth": "1986-07-09",
     "ssn": "090786-122X",
-    "gender": "male",
+    "gender": Gender.male,
     "occupation": "New york city cop",
     "entries": [
       {
@@ -44,7 +43,7 @@ const patientData = [
     "name": "Martin Riggs",
     "dateOfBirth": "1979-01-30",
     "ssn": "300179-77A",
-    "gender": "male",
+    "gender": Gender.male,
     "occupation": "Cop",
     "entries": [
       {
@@ -64,7 +63,7 @@ const patientData = [
     "name": "Hans Gruber",
     "dateOfBirth": "1970-04-25",
     "ssn": "250470-555L",
-    "gender": "other",
+    "gender": Gender.other,
     "occupation": "Technician",
     "entries": []
   },
@@ -73,7 +72,7 @@ const patientData = [
     "name": "Dana Scully",
     "dateOfBirth": "1974-01-05",
     "ssn": "050174-432N",
-    "gender": "female",
+    "gender": Gender.female,
     "occupation": "Forensic Pathologist",
     "entries": []
   },
@@ -82,17 +81,10 @@ const patientData = [
     "name": "Matti Luukkainen",
     "dateOfBirth": "1971-04-09",
     "ssn": "090471-8890",
-    "gender": "male",
+    "gender": Gender.male,
     "occupation": "Digital evangelist",
     "entries": []
   }
 ];
-
-const data: Array<Patient> = patientData.map(obj => {
-  const object = toNewPatientEntry(obj) as Patient;
-  object.id = obj.id;
-  object.entries = obj.entries as Array<Entry>;
-  return object;
-});
 
 export default data;

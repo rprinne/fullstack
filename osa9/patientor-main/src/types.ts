@@ -1,4 +1,4 @@
-export interface Diagnose {
+export interface Diagnosis {
   code: string;
   name: string;
   latin?: string;
@@ -25,12 +25,12 @@ export enum HealthCheckRating {
   "CriticalRisk" = 3
 }
 
-interface HealthCheckEntry extends BaseEntry {
+export interface HealthCheckEntry extends BaseEntry {
   type: "HealthCheck";
   healthCheckRating: HealthCheckRating;
 }
 
-interface HospitalEntry extends BaseEntry {
+export interface HospitalEntry extends BaseEntry {
   type: "Hospital";
   discharge: {
     date: string;
@@ -38,7 +38,7 @@ interface HospitalEntry extends BaseEntry {
   };
 }
 
-interface OccupationalHealthcareEntry extends BaseEntry {
+export interface OccupationalHealthcareEntry extends BaseEntry {
   type: "OccupationalHealthcare";
   employerName: string;
   sickLeave: {
@@ -62,7 +62,7 @@ export interface Patient {
   entries: Array<Entry>;
 }
 
-type UnionOmit<T, K extends string | number | symbol> = T extends unknown ? Omit<T, K> : never;
+export type UnionOmit<T, K extends string | number | symbol> = T extends unknown ? Omit<T, K> : never;
 
 export type NonSensitivePatient = UnionOmit<Patient, "ssn">;
-export type NewPatient = UnionOmit<Patient, "id">;
+export type NewPatient = Omit<Patient, "id" | "entries">;

@@ -4,7 +4,9 @@ import data from "../../data/patients";
 import {
   Patient,
   NewPatient,
-  NonSensitivePatient
+  NonSensitivePatient,
+  Entry,
+  UnionOmit
 } from "../types";
 
 const patients: Array<Patient> = data;
@@ -44,15 +46,28 @@ const addPatient = (entry: NewPatient): NonSensitivePatient => {
   const newId = uuidv4();
   const newPatient = {
     id: newId,
+    entries: [],
     ...entry
-  };
+  } as Patient;
   patients.push(newPatient);
   return {...newPatient};
+};
+
+const addEntry = (patientId: string, entry: UnionOmit<Entry, "id">): Entry => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  const newId = uuidv4();
+  const newEntry = {
+    id: newId,
+    ...entry
+  };
+  patients.find(p => p.id === patientId)?.entries.push(newEntry);
+  return {...newEntry};
 };
 
 export default {
   getPatients,
   getNonSensitivePatients,
   findById,
-  addPatient
+  addPatient,
+  addEntry
 };
