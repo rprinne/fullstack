@@ -90,6 +90,7 @@
     "toidentifier": "^1.0.1",
     "toposort-class": "^1.0.1",
     "type-is": "^1.6.18",
+    "umzug": "^3.8.1",
     "undici-types": "^6.19.6",
     "unpipe": "^1.0.0",
     "utils-merge": "^1.0.1",
@@ -101,7 +102,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "migration:down": "node util/rollback.js"
   },
   "author": "",
   "license": "ISC"
