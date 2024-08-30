@@ -146,7 +146,7 @@ const resolvers = {
   },
   Mutation: {
     addBook: (root, args) => {
-      if (!authors.includes(args.author)) {
+      if (!authors.map(a => a.name).includes(args.author)) {
         const newAuthor = { name: args.author, id: uuid() }
         authors = authors.concat(newAuthor)
       }
