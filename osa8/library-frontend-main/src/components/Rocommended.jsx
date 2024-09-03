@@ -1,4 +1,7 @@
-const Books = (props) => {
+import { useQuery } from '@apollo/client'
+import { ALL_BOOKS_BY_GENRE } from '../queries'
+
+const Recommendations = (props) => {
   if (!props.show) {
     return null
   }
@@ -7,14 +10,27 @@ const Books = (props) => {
     return <div>loading...</div>
   }
 
+  let genre = ""
+  if (props.result.data.me) {
+    genre = props.result.data.me.favoriteGenre
+  }
+
+  const bookResult = useQuery(ALL_BOOKS_BY_GENRE, {
+    variables: { genre }
+  })
+
+  if (bookResult.loading) {
+    return <div>loading books...</div>
+  }
+
   let books = []
-  if (props.result.data.allBooks) {
-    books = props.result.data.allBooks
+  if (bookResult.data.allBooks) {
+    books = bookResult.data.allBooks
   }
 
   return (
     <div>
-      <h2>books</h2>
+      <h2>Recommended books in the genre {genre}</h2>
 
       <table>
         <tbody>
@@ -38,4 +54,4 @@ const Books = (props) => {
   )
 }
 
-export default Books
+export default Recommendations
