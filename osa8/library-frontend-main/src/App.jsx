@@ -8,9 +8,9 @@ import LoginForm from "./components/LoginForm"
 import GenreSelection from "./components/GenreSelection"
 import Recommendations from "./components/Rocommended"
 
-import { useQuery, useApolloClient } from '@apollo/client'
+import { useQuery, useApolloClient, useSubscription } from '@apollo/client'
 
-import { ME, ALL_GENRES, ALL_BOOKS_BY_GENRE, ALL_AUTHORS } from "./queries"
+import { ME, ALL_GENRES, ALL_BOOKS_BY_GENRE, ALL_AUTHORS, BOOK_ADDED } from "./queries"
 
 const App = () => {
   const [page, setPage] = useState("authors");
@@ -25,6 +25,16 @@ const App = () => {
   const genreResult = useQuery(ALL_GENRES)
   const userResult = useQuery(ME)
   const client = useApolloClient()
+
+  useSubscription(BOOK_ADDED, {
+    onData: ({ data }) => {
+      const addedBook = data.data.bookAdded
+      notify(`${addedBook.title} added`)
+      client.refetchQueries({
+        include: "active",
+      })
+    }
+  })
 
   const notify = (message) => {
     setErrorMessage(message)
