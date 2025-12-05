@@ -39,7 +39,7 @@ const validationSchema = yup.object().shape({
   password: yup.string().required('Password is required'),
 });
 
-const SignInForm = ({onSubmit, errorMessage}) => {
+export const SignInForm = ({onSubmit, errorMessage}) => {
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -67,7 +67,10 @@ const SignInForm = ({onSubmit, errorMessage}) => {
       {formik.touched.password && formik.errors.password && (
         <Text style={{ color: 'red' }}>{formik.errors.password}</Text>
       )}
-      <Pressable onPress={formik.handleSubmit} style={styles.submitButton}>
+      <Pressable
+        testID='signInButton'
+        onPress={formik.handleSubmit}
+        style={styles.submitButton}>
         <Text color="textWhite">Sign in</Text>
       </Pressable>
       <Text style={{ color: 'red' }}>{errorMessage}</Text>

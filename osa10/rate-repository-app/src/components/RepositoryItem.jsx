@@ -7,21 +7,28 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: 'white',
   },
-  topRow: {
+  topContainer: {
     flexDirection: 'row',
-    marginBottom: 12,
+    marginBottom: 15,
   },
-  bottomRow: {
+  bottomContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+  },
+  avatarContainer: {
+    flexGrow: 0,
+    marginRight: 20,
   },
   avatar: {
     width: 50,
     height: 50,
     borderRadius: 5,
-    marginRight: 15,
   },
-  languageBox: {
+  contentContainer: {
+    flexGrow: 1,
+    flexShrink: 1,
+  },
+  languageContainer: {
     alignSelf: 'flex-start',
     backgroundColor: '#0366d6',
     paddingVertical: 4,
@@ -30,6 +37,16 @@ const styles = StyleSheet.create({
   },
   languageText: {
     fontColor: 'white',
+  },
+  countItem: {
+    flexGrow: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 15,
+
+  },
+  countItemCount: {
+    marginBottom: 5,
   }
 });
 
@@ -40,42 +57,40 @@ const formatNumber = (number) => {
   return String(number)
 }
 
+const CountItem = ({ label, count }) => {
+  return (
+    <View style={styles.countItem}>
+      <Text style={styles.countItemCount} fontWeight="bold">
+        {formatNumber(count)}
+      </Text>
+      <Text color="textSecondary">{label}</Text>
+    </View>
+  )
+}
+
 const RepositoryItem = ({ item, ...props }) => {
 
   return (
-    <View style={styles.container}>
-
-      <View style={styles.topRow}>
-        <Image
-          style={styles.avatar}
-          source={{ uri: item.ownerAvatarUrl }}
-        />
-        <View style={{ flex: 1 }}>
-          <Text fontWeight='bold'>Full name: {item.fullName}</Text>
-          <Text>Description: {item.description}</Text>
-          <View style={styles.languageBox}>
+    <View testID="repositoryItem" style={styles.container}>
+      
+      <View style={styles.topContainer}>
+        <View style={styles.avatarContainer}>
+          <Image source={{ uri: item.ownerAvatarUrl }} style={styles.avatar} />
+        </View>
+        <View style={styles.contentContainer}>
+          <Text fontWeight='bold'>{item.fullName}</Text>
+          <Text>{item.description}</Text>
+          <View style={styles.languageContainer}>
             <Text color='textWhite'>{item.language}</Text>
           </View>
         </View>
       </View>
 
-      <View style={styles.bottomRow}>
-        <View>
-          <Text fontWeight="bold">{formatNumber(item.stargazersCount)}</Text>
-          <Text>Stars</Text>
-        </View>
-        <View>
-          <Text fontWeight="bold">{formatNumber(item.forksCount)}</Text>
-          <Text>Forks</Text>
-        </View>
-        <View>
-          <Text fontWeight="bold">{item.reviewCount}</Text>
-          <Text>Reviews</Text>
-        </View>
-        <View>
-          <Text fontWeight="bold">{item.ratingAverage}</Text>
-          <Text>Rating</Text>
-        </View>
+      <View style={styles.bottomContainer}>
+        <CountItem count={item.stargazersCount} label="Stars" />
+        <CountItem count={item.forksCount} label="Forks" />
+        <CountItem count={item.reviewCount} label="Reviews" />
+        <CountItem count={item.ratingAverage} label="Rating" />
       </View>
     </View>
   );
