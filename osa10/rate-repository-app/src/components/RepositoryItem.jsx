@@ -1,6 +1,8 @@
-import Constants from 'expo-constants';
-import { Image, View, StyleSheet } from 'react-native';
+import { Image, View, StyleSheet, Pressable } from 'react-native';
+import { useNavigate } from 'react-router-native';
+import { openURL } from 'expo-linking';
 import Text from './Text';
+import ReviewList from './ReviewList';
 
 const styles = StyleSheet.create({
   container: {
@@ -68,11 +70,21 @@ const CountItem = ({ label, count }) => {
   )
 }
 
-const RepositoryItem = ({ item, ...props }) => {
+// Käytetään listassa
+export const RepositoryItemContainer = ({ item, ...props }) => {
+  const navigate = useNavigate();
+  return (
+    <Pressable onPress={() => {item.id && navigate(`/${item.id}`)}}>
+      <RepositoryItem item = {item} singleView={false}/>
+    </Pressable>
+  )
+}
+
+// Käytetään yhden repon sivulla
+export const RepositoryItem = ({ item, singleView, ...props }) => {
 
   return (
     <View testID="repositoryItem" style={styles.container}>
-      
       <View style={styles.topContainer}>
         <View style={styles.avatarContainer}>
           <Image source={{ uri: item.ownerAvatarUrl }} style={styles.avatar} />
@@ -92,8 +104,18 @@ const RepositoryItem = ({ item, ...props }) => {
         <CountItem count={item.reviewCount} label="Reviews" />
         <CountItem count={item.ratingAverage} label="Rating" />
       </View>
+
+      {singleView &&
+        <Pressable
+          onPress={()=>{item.url && openURL(item.url)}}
+          style={styles.languageContainer}>
+          <Text color='textWhite'>Open in Github</Text>
+        </Pressable>
+      }
+      {singleView &&
+        <ReviewList reviews={item.reviews} />
+      }
+
     </View>
   );
 };
-
-export default RepositoryItem;

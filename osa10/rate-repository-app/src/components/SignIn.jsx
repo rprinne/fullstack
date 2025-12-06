@@ -80,7 +80,7 @@ export const SignInForm = ({onSubmit, errorMessage}) => {
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const [signIn] = useSignIn();
+  const [signIn, { data, loading, error }] = useSignIn();
   const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit = async (values) => {
@@ -88,13 +88,16 @@ const SignIn = () => {
 
     try {
       await signIn({ username, password });
-      // navigate('/');
+      if (error?.message) {
+        setErrorMessage(error.message);
+        setTimeout(() => {
+          setErrorMessage("");
+        }, 5000);
+      } else {
+        navigate('/');
+      }
     } catch (error) {
-      setErrorMessage(error);
       console.log(error)
-      setTimeout(() => {
-        setErrorMessage("");
-      }, 5000);
     }
   };
 
