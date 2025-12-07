@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   languageText: {
-    fontColor: 'white',
   },
   countItem: {
     flexGrow: 0,
@@ -74,7 +73,7 @@ const CountItem = ({ label, count }) => {
 export const RepositoryItemContainer = ({ item, ...props }) => {
   const navigate = useNavigate();
   return (
-    <Pressable onPress={() => {item.id && navigate(`/${item.id}`)}}>
+    <Pressable onPress={() => {item.id && navigate(`/repository/${item.id}`)}}>
       <RepositoryItem item = {item} singleView={false}/>
     </Pressable>
   )

@@ -41,6 +41,11 @@ const AppBar = () => {
           <Link to="/" style={styles.link}>
             <Text color='textWhite'>Repositories</Text>
           </Link>
+          {loggedIn &&
+            <Link to="/review" style={styles.link}>
+              <Text color='textWhite'>Reviews</Text>
+            </Link>
+          }
           {loggedIn && 
             <Pressable onPress={signOut}>
               <Text color="textWhite">Sign out, logged in as {data?.me?.username}</Text>
@@ -49,6 +54,11 @@ const AppBar = () => {
           {!loggedIn && 
             <Link to="/signin" style={styles.link}>
               <Text color='textWhite'>Sign in</Text>
+            </Link>
+          }
+          {!loggedIn && 
+            <Link to="/signup" style={styles.link}>
+              <Text color='textWhite'>Sign up</Text>
             </Link>
           }
         </ScrollView>

@@ -14,15 +14,22 @@ export const RepositoryDetails = gql`
   }
 `
 
+export const UserDetails = gql`
+  fragment UserDetails on User {
+    id
+    username
+  }
+`
+
 export const ReviewDetails = gql`
   fragment ReviewDetails on Review {
     id
     text
     rating
     createdAt
+    repositoryId
     user {
-      id
-      username
+      ...UserDetails
     }
-  }
+  }${UserDetails}
 `

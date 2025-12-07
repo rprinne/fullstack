@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { TextInput, Pressable, View, StyleSheet } from 'react-native';
+import { View, TextInput, StyleSheet, Pressable } from 'react-native';
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router';
@@ -47,7 +47,7 @@ export const SignInForm = ({onSubmit, errorMessage}) => {
   });
 
   return (
-    <View style={styles.container}>
+    <View onSubmit={formik.handleSubmit} style={styles.container}>
       <TextInput
         placeholder="Username"
         value={formik.values.username}
@@ -101,7 +101,7 @@ const SignIn = () => {
     }
   };
 
-  return <SignInForm onSubmit={onSubmit} errorMessage={errorMessage} />;
+  return <SignInForm onSubmit={onSubmit} errorMessage={errorMessage} />
 };
 
 export default SignIn;

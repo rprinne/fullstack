@@ -1,4 +1,6 @@
 import { FlatList, View, StyleSheet } from 'react-native';
+import { useState } from 'react';
+import {Picker} from '@react-native-picker/picker';
 
 import useRepositories from '../hooks/useRepositories';
 import { RepositoryItemContainer } from './RepositoryItem';
@@ -10,8 +12,9 @@ const styles = StyleSheet.create({
 });
 
 
+const ItemSeparator = () => <View style={styles.separator} />;
+
 export const RepositoryListContainer = ({ repositories }) => {
-  const ItemSeparator = () => <View style={styles.separator} />;
   // Get the nodes from the edges array
   const repositoryNodes = repositories
     ? repositories.edges?.map((edge) => edge.node)
@@ -29,13 +32,37 @@ export const RepositoryListContainer = ({ repositories }) => {
   );
 }
 
+const sortOptions = {
+  latestFirst: {orderBy: "CREATED_AT", orderDirection: "DESC"},
+  highestFirst: {orderBy: "RATING_AVERAGE", orderDirection: "DESC"},
+  lowestFirst: {orderBy: "RATING_AVERAGE", orderDirection: "ASC"},
+}
+
 export const RepositoryList = () => {
-  const { repositories } = useRepositories();
+  const [sortKey, setSortKey] = useState("latestFirst");
+
+  const { repositories } = useRepositories(sortOptions[sortKey]);
   
   return (
-    <RepositoryListContainer
-      repositories={repositories}
-    />
+    <View style={{ flex: 1 }}>
+      <Picker
+        selectedValue={sortKey}
+        onValueChange={(value)=>setSortKey(value)}
+      >
+        <Picker.Item
+          label="Latest repositories"
+          value="latestFirst" />
+        <Picker.Item
+          label="Highest rated repositories"
+          value="highestFirst" />
+        <Picker.Item
+          label="Lowest rated repositories"
+          value="lowestFirst" />
+      </Picker>
+      <RepositoryListContainer
+        repositories={repositories}
+      />
+    </View>
   );
 };
 

@@ -15,14 +15,13 @@ const useSignIn = () => {
           credentials: { username, password },
         },
       });
-      console.log("yritettiin kirjautua", data)
       await authStorage.setAccessToken(data?.authenticate?.accessToken);
       const savedToken = await authStorage.getAccessToken();
-      console.log('tallennettu', savedToken);
+      console.log("tallennettu token:", savedToken);
       apolloClient.resetStore();
       return data;
     } catch (error) {
-      console.log(error, result);
+      console.log(error);
     }
   };
 
