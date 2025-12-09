@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 10,
+    verticalAlign: 'middle',
+    paddingVertical: 15,
   },
   link: {
     marginRight: 20,
@@ -25,7 +26,6 @@ const AppBar = () => {
   const apolloClient = useApolloClient();
   
   const { data } = useQuery(ME);
-  console.log("yritetään hakea ME", data);
   let loggedIn = false;
   loggedIn = !data?.me ? false : true;
   
@@ -44,6 +44,11 @@ const AppBar = () => {
           {loggedIn &&
             <Link to="/review" style={styles.link}>
               <Text color='textWhite'>Reviews</Text>
+            </Link>
+          }
+          {loggedIn &&
+            <Link to="/myreviews" style={styles.link}>
+              <Text color='textWhite'>My reviews</Text>
             </Link>
           }
           {loggedIn && 

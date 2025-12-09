@@ -8,11 +8,15 @@ const styles = StyleSheet.create({
 });
 
 const ItemSeparator = () => <View style={styles.separator} />;
-const renderItem = ({ item }) => <ReviewItem review={item}/>
-export const ReviewListContainer = ({ reviews }) => {
+
+export const ReviewListContainer = ({ reviews, myReviews }) => {
   const reviewNodes = reviews
     ? reviews.edges?.map((edge) => edge.node)
     : [];
+
+  const renderItem = ({ item }) => {
+    return <ReviewItem review={item} myReviews={myReviews} />
+  }
 
   return (
     <FlatList
@@ -24,10 +28,11 @@ export const ReviewListContainer = ({ reviews }) => {
   );
 }
 
-export const ReviewList = ({ reviews }) => {
+export const ReviewList = ({ reviews, myReviews = false }) => {
   return (
     <ReviewListContainer
       reviews={reviews}
+      myReviews={myReviews}
     />
   );
 };

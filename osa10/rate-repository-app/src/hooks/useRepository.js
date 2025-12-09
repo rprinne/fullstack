@@ -9,8 +9,6 @@ const useRepository = (repositoryId) => {
     }
   });
 
-  console.log("from useRepo", data)
-
   return { repository: data ? data.repository : undefined, ...result };
 };
 

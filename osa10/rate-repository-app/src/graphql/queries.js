@@ -2,13 +2,15 @@ import { gql } from '@apollo/client';
 import { RepositoryDetails, ReviewDetails } from './fragments';
 
 export const GET_REPOSITORIES = gql`
-  query repositories(
-    $orderBy: AllRepositoriesOrderBy,
-    $orderDirection: OrderDirection
+  query Repositories(
+    $orderBy: AllRepositoriesOrderBy!
+    $orderDirection: OrderDirection!
+    $searchKeyword: String!
   ) {
     repositories(
-      orderBy: $orderBy,
+      orderBy: $orderBy
       orderDirection: $orderDirection
+      searchKeyword: $searchKeyword
     ) {
       edges {
         node {
@@ -21,7 +23,7 @@ export const GET_REPOSITORIES = gql`
 `
 
 export const GET_REPOSITORY = gql`
-  query repository($repositoryId: ID!) {
+  query Repository($repositoryId: ID!) {
     repository(id: $repositoryId) {
       ...RepositoryDetails
       reviews {
@@ -38,10 +40,18 @@ export const GET_REPOSITORY = gql`
 `
 
 export const ME = gql`
-  query {
+  query Me($includeReviews: Boolean = false) {
     me {
       id
       username
+      reviews @include(if: $includeReviews) {
+        edges {
+          node {
+            ...ReviewDetails
+          }
+        }
+      }
     }
   }
+  ${ReviewDetails}
 `

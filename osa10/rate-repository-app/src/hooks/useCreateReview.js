@@ -1,8 +1,8 @@
 import { useApolloClient, useMutation } from '@apollo/client';
-import { CRAETE_REVIEW } from '../graphql/mutations';
+import { CREATE_REVIEW } from '../graphql/mutations';
 
 const useCreateReview = () => {
-  const [mutate, result] = useMutation(CRAETE_REVIEW);
+  const [mutate, result] = useMutation(CREATE_REVIEW);
   const apolloClient = useApolloClient();
 
   const addReview = async ({ ownerName, repositoryName, rating, text }) => {
@@ -12,7 +12,7 @@ const useCreateReview = () => {
       },
     });
     apolloClient.resetStore();
-    return result ? result : undefined;
+    return result;
   };
 
   return [addReview, result];

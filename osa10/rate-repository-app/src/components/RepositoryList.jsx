@@ -1,5 +1,6 @@
-import { FlatList, View, StyleSheet } from 'react-native';
+import { TextInput, FlatList, View, StyleSheet } from 'react-native';
 import { useState } from 'react';
+import { useDebounce } from 'use-debounce';
 import {Picker} from '@react-native-picker/picker';
 
 import useRepositories from '../hooks/useRepositories';
@@ -11,10 +12,9 @@ const styles = StyleSheet.create({
   },
 });
 
-
 const ItemSeparator = () => <View style={styles.separator} />;
 
-export const RepositoryListContainer = ({ repositories }) => {
+const RepositoryListContainer = ({ repositories }) => {
   // Get the nodes from the edges array
   const repositoryNodes = repositories
     ? repositories.edges?.map((edge) => edge.node)
@@ -36,15 +36,22 @@ const sortOptions = {
   latestFirst: {orderBy: "CREATED_AT", orderDirection: "DESC"},
   highestFirst: {orderBy: "RATING_AVERAGE", orderDirection: "DESC"},
   lowestFirst: {orderBy: "RATING_AVERAGE", orderDirection: "ASC"},
-}
+};
 
 export const RepositoryList = () => {
   const [sortKey, setSortKey] = useState("latestFirst");
+  const [searchKey, setSearchKey] = useState("");
+  const [searchKeyDebounced] = useDebounce(searchKey, 1000);
 
-  const { repositories } = useRepositories(sortOptions[sortKey]);
+  const { repositories } = useRepositories({...sortOptions[sortKey], searchKeyword: searchKeyDebounced});
   
   return (
     <View style={{ flex: 1 }}>
+      <TextInput
+        placeholder="Search"
+        onChangeText={setSearchKey}
+        value={searchKey}
+      />
       <Picker
         selectedValue={sortKey}
         onValueChange={(value)=>setSortKey(value)}

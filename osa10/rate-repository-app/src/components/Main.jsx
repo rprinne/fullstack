@@ -7,16 +7,17 @@ import AppBar from './AppBar';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import SubmitReview from './ReviewForm';
+import MyReviews from './MyReviews'
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'column',
+  safeContainer: {
+    flex: 1,
   }
 });
 
 const Main = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.safeContainer}>
       <AppBar />
       <Routes>
         <Route path="/" element={<RepositoryList />} />
@@ -24,6 +25,7 @@ const Main = () => {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/review" element={<SubmitReview />} />
+        <Route path="/myreviews" element={<MyReviews />} />
         <Route path="*" element={<Navigate to="/"  replace />} />
       </Routes>
     </SafeAreaView>
