@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 export const RepositoryDetails = gql`
   fragment RepositoryDetails on Repository {
     id
@@ -12,14 +12,14 @@ export const RepositoryDetails = gql`
     ratingAverage
     url
   }
-`
+`;
 
 export const UserDetails = gql`
   fragment UserDetails on User {
     id
     username
   }
-`
+`;
 
 export const ReviewDetails = gql`
   fragment ReviewDetails on Review {
@@ -35,4 +35,12 @@ export const ReviewDetails = gql`
       ...UserDetails
     }
   }${UserDetails}
-`
+`;
+
+export const PageInfoDetails = gql`
+  fragment PageInfoDetails on PageInfo {
+    endCursor
+    startCursor
+    hasNextPage
+  }
+`;

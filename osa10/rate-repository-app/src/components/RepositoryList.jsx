@@ -1,10 +1,11 @@
-import { TextInput, FlatList, View, StyleSheet } from 'react-native';
-import { useState } from 'react';
-import { useDebounce } from 'use-debounce';
-import {Picker} from '@react-native-picker/picker';
+import { TextInput, FlatList, View, StyleSheet } from "react-native";
+import { useState } from "react";
+import { useDebounce } from "use-debounce";
+import {Picker} from "@react-native-picker/picker";
 
-import useRepositories from '../hooks/useRepositories';
-import { RepositoryItemContainer } from './RepositoryItem';
+import useRepositories from "../hooks/useRepositories";
+import { RepositoryItemContainer } from "./RepositoryItem";
+import Text from "./Text";
 
 const styles = StyleSheet.create({
   separator: {
@@ -14,23 +15,29 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-const RepositoryListContainer = ({ repositories }) => {
-  // Get the nodes from the edges array
+const RepositoryListContainer = ({
+  listHeader,
+  repositories,
+  onEndReach,
+}) => {
   const repositoryNodes = repositories
     ? repositories.edges?.map((edge) => edge.node)
     : [];
   
   return (
     <FlatList
+      ListHeaderComponent={listHeader}
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
       keyExtractor={(item) => item.id}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
       renderItem={({item}) => (
         <RepositoryItemContainer item = {item} singleView={false}/>
       )}
     />
   );
-}
+};
 
 const sortOptions = {
   latestFirst: {orderBy: "CREATED_AT", orderDirection: "DESC"},
@@ -43,10 +50,18 @@ export const RepositoryList = () => {
   const [searchKey, setSearchKey] = useState("");
   const [searchKeyDebounced] = useDebounce(searchKey, 1000);
 
-  const { repositories } = useRepositories({...sortOptions[sortKey], searchKeyword: searchKeyDebounced});
-  
-  return (
-    <View style={{ flex: 1 }}>
+  const { repositories, loading, fetchMore } = useRepositories({
+    first: 5,
+    ...sortOptions[sortKey],
+    searchKeyword: searchKeyDebounced
+  });
+
+  const onEndReach = () => {
+    fetchMore();
+  };
+
+  const ListHeader = (
+    <View>
       <TextInput
         placeholder="Search"
         onChangeText={setSearchKey}
@@ -66,8 +81,18 @@ export const RepositoryList = () => {
           label="Lowest rated repositories"
           value="lowestFirst" />
       </Picker>
+
+      {loading && <Text>Loading repositories...</Text>}
+    </View>
+  );
+
+  
+  return (
+    <View style={{ flex: 1 }}>
       <RepositoryListContainer
+        listHeader={ListHeader}
         repositories={repositories}
+        onEndReach={onEndReach}
       />
     </View>
   );

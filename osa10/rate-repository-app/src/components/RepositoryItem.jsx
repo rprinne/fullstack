@@ -1,21 +1,21 @@
-import { Image, View, StyleSheet, Pressable } from 'react-native';
-import { useNavigate } from 'react-router-native';
-import { openURL } from 'expo-linking';
-import Text from './Text';
-import ReviewList from './ReviewList';
+import { Image, View, StyleSheet, Pressable } from "react-native";
+import { useNavigate } from "react-router-native";
+import { openURL } from "expo-linking";
+import Text from "./Text";
+import ReviewList from "./ReviewList";
 
 const styles = StyleSheet.create({
   container: {
     padding: 15,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   topContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginBottom: 15,
   },
   bottomContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
   avatarContainer: {
     flexGrow: 0,
@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   languageContainer: {
-    alignSelf: 'flex-start',
-    backgroundColor: '#0366d6',
+    alignSelf: "flex-start",
+    backgroundColor: "#0366d6",
     paddingVertical: 4,
     paddingHorizontal: 8,
     borderRadius: 4,
@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
   },
   countItem: {
     flexGrow: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingHorizontal: 15,
 
   },
@@ -55,8 +55,8 @@ const formatNumber = (number) => {
   if (number >= 1000) {
     return `${(number / 1000).toFixed(1)}k`;
   }
-  return String(number)
-}
+  return String(number);
+};
 
 const CountItem = ({ label, count }) => {
   return (
@@ -66,18 +66,18 @@ const CountItem = ({ label, count }) => {
       </Text>
       <Text color="textSecondary">{label}</Text>
     </View>
-  )
-}
+  );
+};
 
 // Käytetään listassa
 export const RepositoryItemContainer = ({ item, ...props }) => {
   const navigate = useNavigate();
   return (
-    <Pressable onPress={() => {item.id && navigate(`/repository/${item.id}`)}}>
+    <Pressable onPress={() => {item.id && navigate(`/repository/${item.id}`);}}>
       <RepositoryItem item = {item} singleView={false}/>
     </Pressable>
-  )
-}
+  );
+};
 
 // Käytetään yhden repon sivulla
 export const RepositoryItem = ({ item, singleView, ...props }) => {
@@ -106,13 +106,10 @@ export const RepositoryItem = ({ item, singleView, ...props }) => {
 
       {singleView &&
         <Pressable
-          onPress={()=>{item.url && openURL(item.url)}}
+          onPress={()=>{item.url && openURL(item.url);}}
           style={styles.languageContainer}>
           <Text color='textWhite'>Open in Github</Text>
         </Pressable>
-      }
-      {singleView &&
-        <ReviewList reviews={item.reviews} />
       }
 
     </View>

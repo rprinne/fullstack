@@ -1,28 +1,28 @@
-import { TextInput, Pressable, View, StyleSheet } from 'react-native';
-import { useNavigate } from 'react-router';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
+import { TextInput, Pressable, View, StyleSheet } from "react-native";
+import { useNavigate } from "react-router";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
-import useCreateReview from '../hooks/useCreateReview';
-import Text from './Text';
+import useCreateReview from "../hooks/useCreateReview";
+import Text from "./Text";
 
 const styles = StyleSheet.create({
   container: {
     width: 200,
   },
   textBox: {
-    width: '100%',
-    alignSelf: 'flex-start',
+    width: "100%",
+    alignSelf: "flex-start",
     paddingVertical: 4,
     paddingHorizontal: 8,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderRadius: 4,
   },
   submitButton: {
-    width: '100%',
-    alignSelf: 'flex-start',
-    backgroundColor: '#0366d6',
+    width: "100%",
+    alignSelf: "flex-start",
+    backgroundColor: "#0366d6",
     paddingVertical: 4,
     paddingHorizontal: 8,
     borderRadius: 4,
@@ -30,19 +30,19 @@ const styles = StyleSheet.create({
 });
 
 const initialValues = {
-  ownerName: '',
-  repositoryName: '',
-  rating: '',
-  reviewText: '',
+  ownerName: "",
+  repositoryName: "",
+  rating: "",
+  reviewText: "",
 };
 
 const validationSchema = yup.object().shape({
   ownerName: yup
     .string()
-    .required('Username is required'),
+    .required("Username is required"),
   repositoryName: yup
     .string()
-    .required('Password is required'),
+    .required("Password is required"),
   rating: yup
     .number()
     .required("Rating is required")
@@ -61,36 +61,36 @@ export const ReviewForm = ({onSubmit, errorMessage}) => {
       <TextInput
         placeholder="Repository owner name"
         value={formik.values.ownerName}
-        onChangeText={formik.handleChange('ownerName')}
+        onChangeText={formik.handleChange("ownerName")}
         style={styles.textBox}
       />
       {formik.touched.ownerName && formik.errors.ownerName && (
-        <Text style={{ color: 'red' }}>{formik.errors.ownerName}</Text>
+        <Text style={{ color: "red" }}>{formik.errors.ownerName}</Text>
       )}
       <TextInput
         placeholder="Repository name"
         value={formik.values.repositoryName}
-        onChangeText={formik.handleChange('repositoryName')}
+        onChangeText={formik.handleChange("repositoryName")}
         style={styles.textBox}
       />
       {formik.touched.repositoryName && formik.errors.repositoryName && (
-        <Text style={{ color: 'red' }}>{formik.errors.repositoryName}</Text>
+        <Text style={{ color: "red" }}>{formik.errors.repositoryName}</Text>
       )}
       <TextInput
         placeholder="Rating"
         keyboardType='numeric'
         value={formik.values.rating}
-        onChangeText={formik.handleChange('rating')}
+        onChangeText={formik.handleChange("rating")}
         style={styles.textBox}
       />
       {formik.touched.rating && formik.errors.rating && (
-        <Text style={{ color: 'red' }}>{formik.errors.rating}</Text>
+        <Text style={{ color: "red" }}>{formik.errors.rating}</Text>
       )}
       <TextInput
         placeholder="Write the optional review here"
         multiline={true}
         value={formik.values.reviewText}
-        onChangeText={formik.handleChange('reviewText')}
+        onChangeText={formik.handleChange("reviewText")}
         style={styles.textBox}
       />
       <Pressable
@@ -99,7 +99,7 @@ export const ReviewForm = ({onSubmit, errorMessage}) => {
         style={styles.submitButton}>
         <Text color="textWhite">Create a review</Text>
       </Pressable>
-      <Text style={{ color: 'red' }}>{errorMessage}</Text>
+      <Text style={{ color: "red" }}>{errorMessage}</Text>
     </View>
   );
 };
@@ -118,17 +118,17 @@ const SubmitReview = () => {
         rating: Number(rating),
         text: reviewText,
       });
-      console.log("from onsubmit", result)
+      console.log("from onsubmit", result);
       
       if (result.data) {
-        navigate(`/repository/${result.data.createReview.repositoryId}`)
+        navigate(`/repository/${result.data.createReview.repositoryId}`);
       };
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  return <ReviewForm onSubmit={onSubmit}/>
-}
+  return <ReviewForm onSubmit={onSubmit}/>;
+};
 
 export default SubmitReview;

@@ -1,5 +1,5 @@
-import { gql } from '@apollo/client';
-import { ReviewDetails, UserDetails } from './fragments';
+import { gql } from "@apollo/client";
+import { ReviewDetails, UserDetails } from "./fragments";
 
 export const SIGN_IN = gql`
   mutation Authenticate
@@ -11,7 +11,7 @@ export const SIGN_IN = gql`
         }
       }
     }${UserDetails}
-`
+`;
 
 export const CREATE_REVIEW = gql`
   mutation CreateReview
@@ -20,14 +20,14 @@ export const CREATE_REVIEW = gql`
         ...ReviewDetails
       }
     }${ReviewDetails}
-`
+`;
 
 export const DELETE_REVIEW = gql`
   mutation DeleteReview
     ($deleteReviewId: ID!) {
       deleteReview(id: $deleteReviewId)
     }
-`
+`;
 
 export const CREATE_USER = gql`
   mutation CreateUser
@@ -36,4 +36,4 @@ export const CREATE_USER = gql`
         ...UserDetails
       }
     }${UserDetails}
-`
+`;

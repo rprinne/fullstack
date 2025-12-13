@@ -1,8 +1,8 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // https://react-native-async-storage.github.io/2.0/Usage/
 
 class AuthStorage {
-  constructor(namespace = 'auth') {
+  constructor(namespace = "auth") {
     this.namespace = namespace;
   };
 
@@ -14,7 +14,7 @@ class AuthStorage {
       );
       return token;
     } catch(error) {
-      console.log('tuli virhe', error);
+      console.log("tuli virhe", error);
     }
   };
 

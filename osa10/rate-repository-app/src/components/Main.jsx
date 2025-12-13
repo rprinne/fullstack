@@ -1,13 +1,13 @@
-import { StyleSheet, SafeAreaView} from 'react-native';
-import { Route, Routes, Navigate } from 'react-router-native';
+import { StyleSheet, SafeAreaView} from "react-native";
+import { Route, Routes, Navigate } from "react-router-native";
 
-import RepositoryList from './RepositoryList';
-import SingleRepositoryPage from './SingleRepositoryPage';
-import AppBar from './AppBar';
-import SignIn from './SignIn';
-import SignUp from './SignUp';
-import SubmitReview from './ReviewForm';
-import MyReviews from './MyReviews'
+import RepositoryList from "./RepositoryList";
+import SingleRepositoryPage from "./SingleRepositoryPage";
+import AppBar from "./AppBar";
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
+import SubmitReview from "./ReviewForm";
+import MyReviews from "./MyReviews";
 
 const styles = StyleSheet.create({
   safeContainer: {

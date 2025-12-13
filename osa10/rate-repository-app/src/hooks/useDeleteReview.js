@@ -1,6 +1,6 @@
-import { useMutation } from '@apollo/client';
-import { DELETE_REVIEW} from '../graphql/mutations';
-import { ME } from '../graphql/queries';
+import { useMutation } from "@apollo/client";
+import { DELETE_REVIEW} from "../graphql/mutations";
+import { ME } from "../graphql/queries";
 
 const useDeleteReview = () => {
   const [mutate, result] = useMutation(DELETE_REVIEW);

@@ -1,29 +1,29 @@
-import { View, Pressable, StyleSheet, Alert, Platform } from 'react-native';
-import { format, parseISO } from 'date-fns';
-import { useNavigate } from 'react-router-native';
-import useDeleteReview from '../hooks/useDeleteReview';
-import Text from './Text';
+import { View, Pressable, StyleSheet, Alert, Platform } from "react-native";
+import { format, parseISO } from "date-fns";
+import { useNavigate } from "react-router-native";
+import useDeleteReview from "../hooks/useDeleteReview";
+import Text from "./Text";
 
 const styles = StyleSheet.create({
   container: {
     padding: 15,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   topContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginBottom: 15,
   },
   contentContainer: {
-    flexDirection: 'column',
+    flexDirection: "column",
     flexGrow: 1,
     flexShrink: 1,
   },
   buttonsContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   reviewContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginRight: 20,
     width: 50,
     height: 50,
@@ -31,20 +31,20 @@ const styles = StyleSheet.create({
     borderRadius: 50/2,
   },
   reviewText: {
-    textAlign: 'center',
-    textAlignVertical: 'center',
+    textAlign: "center",
+    textAlignVertical: "center",
   },
   repoButton: {
-    alignSelf: 'flex-start',
-    backgroundColor: '#10c36cff',
+    alignSelf: "flex-start",
+    backgroundColor: "#10c36cff",
     paddingVertical: 4,
     paddingHorizontal: 8,
     borderRadius: 4,
     marginRight: 10,
   },
   deleteButton: {
-    alignSelf: 'flex-start',
-    backgroundColor: '#eb0707ff',
+    alignSelf: "flex-start",
+    backgroundColor: "#eb0707ff",
     paddingVertical: 4,
     paddingHorizontal: 8,
     borderRadius: 4,
@@ -62,8 +62,8 @@ const useAlert = () => {
         "Confirm review delete",
         message,
         [
-          { text: 'Cancel', onPress: () => resolve(false) },
-          { text: 'OK', onPress: () => resolve(true) }
+          { text: "Cancel", onPress: () => resolve(false) },
+          { text: "OK", onPress: () => resolve(true) }
         ],
       );
     }
@@ -76,8 +76,8 @@ const ReviewItem = ({review, myReviews = false}) => {
 
   const handleDelete = async (reviewId) => {
     const confirm = await useAlert();
-    if (confirm) { await deleteReview(reviewId) };
-  }
+    if (confirm) { await deleteReview(reviewId); };
+  };
 
   const createdDate = parseISO(review.createdAt);
 
@@ -102,7 +102,7 @@ const ReviewItem = ({review, myReviews = false}) => {
           }
 
           <View>
-            <Text>{format(createdDate, 'dd.MM.yyyy')}</Text>
+            <Text>{format(createdDate, "dd.MM.yyyy")}</Text>
           </View>
           
           <View>
@@ -115,7 +115,7 @@ const ReviewItem = ({review, myReviews = false}) => {
         <View style={styles.buttonsContainer}>
           <Pressable
             onPress={() =>{
-              review.repositoryId && navigate(`/repository/${review.repositoryId}`)
+              review.repositoryId && navigate(`/repository/${review.repositoryId}`);
             }}
             style={styles.repoButton}>
             <Text color='textWhite'>Open repository</Text>
@@ -130,7 +130,7 @@ const ReviewItem = ({review, myReviews = false}) => {
         </View>
       }
       </View>
-  )
-}
+  );
+};
 
 export default ReviewItem;

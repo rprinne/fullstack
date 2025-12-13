@@ -1,19 +1,19 @@
-import Constants from 'expo-constants';
-import { View, StyleSheet, Pressable, ScrollView } from 'react-native';
-import { Link } from 'react-router-native';
-import Text from './Text';
+import Constants from "expo-constants";
+import { View, StyleSheet, Pressable, ScrollView } from "react-native";
+import { Link } from "react-router-native";
+import Text from "./Text";
 
-import { useQuery, useApolloClient } from '@apollo/client';
-import { ME } from '../graphql/queries';
-import useAuthStorage from '../hooks/useAuthStrorage';
+import { useQuery, useApolloClient } from "@apollo/client";
+import { ME } from "../graphql/queries";
+import useAuthStorage from "../hooks/useAuthStrorage";
 
 const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: 'green',
-    flexDirection: 'row',
-    alignItems: 'center',
-    verticalAlign: 'middle',
+    backgroundColor: "green",
+    flexDirection: "row",
+    alignItems: "center",
+    verticalAlign: "middle",
     paddingVertical: 15,
   },
   link: {
@@ -32,7 +32,7 @@ const AppBar = () => {
   const signOut = async () => {
     await authStorage.removeAccessToken();
     await apolloClient.resetStore();
-  }
+  };
   
   return (
     <Pressable>
@@ -69,7 +69,7 @@ const AppBar = () => {
         </ScrollView>
       </View>
     </Pressable>
-  )
+  );
 };
 
 export default AppBar;

@@ -1,6 +1,6 @@
-import { Text as NativeText, StyleSheet } from 'react-native';
+import { Text as NativeText, StyleSheet } from "react-native";
 
-import theme from '../theme';
+import theme from "../theme";
 
 const styles = StyleSheet.create({
   text: {
@@ -29,11 +29,11 @@ const styles = StyleSheet.create({
 const Text = ({ color, fontSize, fontWeight, style, ...props }) => {
   const textStyle = [
     styles.text,
-    color === 'textSecondary' ? styles.colorTextSecondary : null,
-    color === 'primary' ? styles.colorPrimary : null,
-    color === 'textWhite' ? styles.colorWhite : null,
-    fontSize === 'subheading' ? styles.fontSizeSubheading : null,
-    fontWeight === 'bold' ? styles.fontWeightBold : null,
+    color === "textSecondary" ? styles.colorTextSecondary : null,
+    color === "primary" ? styles.colorPrimary : null,
+    color === "textWhite" ? styles.colorWhite : null,
+    fontSize === "subheading" ? styles.fontSizeSubheading : null,
+    fontWeight === "bold" ? styles.fontWeightBold : null,
     style,
   ];
 
