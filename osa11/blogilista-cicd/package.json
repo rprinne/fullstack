@@ -2,22 +2,23 @@
   "name": "blogilista",
   "version": "1.0.0",
   "description": "blogilistasovellus",
+  "author": "",
+  "license": "ISC",
   "scripts": {
     "start": "cross-env NODE_ENV=production node index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js",
-    "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
-    "lint": "eslint .",
     "start:test": "cross-env NODE_ENV=test node index.js",
     "start:frontend": "react-scripts start",
     "build:frontend": "react-scripts build",
+    "test:backend": "cross-env NODE_ENV=test jest --config jest.config.js --verbose --runInBand",
     "test:frontend": "react-scripts test",
     "eject:frontend": "react-scripts eject",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "lint": "eslint ."
   },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@jest/globals": "^30.2.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
@@ -48,10 +49,6 @@
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "globalTeardown": "./tests/teardown.js"
   },
   "browserslist": {
     "production": [
